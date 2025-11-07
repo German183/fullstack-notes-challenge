@@ -1,0 +1,8 @@
+# node_modules (no subir dependencias)
+backend/node_modules
+frontend/node_modules
+
+# archivos temporales
+dist
+.env
+.DS_Store
