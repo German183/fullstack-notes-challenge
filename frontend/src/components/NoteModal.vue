@@ -22,23 +22,23 @@ export default {
 <template>
   <div class="modal-backdrop" @click.self="$emit('close')">
     <div class="modal">
-      <h2>New Note</h2>
+      <h2>Nueva Nota</h2>
 
       <form @submit.prevent="saveNote">
         <input
           v-model="note.title"
-          placeholder="Title"
+          placeholder="Titulo"
           required
         />
         <textarea
           v-model="note.content"
-          placeholder="Write your note here..."
+          placeholder="Escribe tu nota aquí..."
           required
         ></textarea>
 
         <div class="buttons">
-          <button type="submit" class="btn primary">Save</button>
-          <button type="button" class="btn" @click="$emit('close')">Cancel</button>
+          <button type="submit" class="btn primary">Guardar</button>
+          <button type="button" class="btn" @click="$emit('close')">Cancelar</button>
         </div>
       </form>
     </div>
