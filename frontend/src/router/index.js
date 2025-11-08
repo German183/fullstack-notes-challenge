@@ -15,6 +15,11 @@ const router = createRouter({
       name: 'note',
       component: NoteView,
     },
+    // Redirección para rutas no existentes
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
+    },
   ],
 })
 

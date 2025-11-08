@@ -4,13 +4,20 @@ export default {
   data() {
     return {
       note: { title: '', content: '' },
+      loading: true,
     }
   },
   async mounted() {
     const id = this.$route.params.id
-    const res = await fetch(`http://localhost:4000/api/notes/${id}`)
-    const data = await res.json()
-    this.note = data
+    try {
+      const res = await fetch(`http://localhost:4000/api/notes/${id}`)
+      const data = await res.json()
+      this.note = data
+    } catch (err) {
+      console.error('Error fetching note:', err)
+    } finally {
+      this.loading = false
+    }
   },
   methods: {
     async updateNote() {
@@ -20,7 +27,9 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.note),
       })
-      if (res.ok) alert('Nota actualizada correctamente ✅')
+      if (res.ok) {
+        alert('✅ Nota actualizada correctamente')
+      }
     },
     async deleteNote() {
       const id = this.$route.params.id
@@ -29,7 +38,7 @@ export default {
           method: 'DELETE',
         })
         if (res.ok) {
-          alert('Nota eliminada 🗑')
+          alert('🗑 Nota eliminada')
           this.$router.push('/')
         }
       }
@@ -40,83 +49,127 @@ export default {
 
 <template>
   <div class="note-view">
-    <div class="header">
-      <button class="btn back" @click="$router.push('/')">← Back</button>
-      <div class="actions">
-        <button class="btn delete" @click="deleteNote">🗑 Delete</button>
-        <button class="btn save" @click="updateNote">💾 Save</button>
-      </div>
-    </div>
+    <div v-if="loading" class="loading">Cargando nota...</div>
 
-    <input
-      v-model="note.title"
-      placeholder="Note title"
-      class="title-input"
-    />
-    <textarea
-      v-model="note.content"
-      placeholder="Write your content..."
-      class="content-input"
-    ></textarea>
+    <div v-else class="inputs">
+      <div class="header">
+        <button class="btn back" @click="$router.push('/')">← Volver</button>
+        <div class="actions">
+          <button class="btn delete" @click="deleteNote">🗑 Eliminar</button>
+          <button class="btn save" @click="updateNote">💾 Guardar</button>
+        </div>
+      </div>
+
+      <input
+        v-model="note.title"
+        placeholder="Título de la nota"
+        class="title-input"
+      />
+
+      <textarea
+        v-model="note.content"
+        placeholder="Escribí tu contenido..."
+        class="content-input"
+      ></textarea>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .note-view {
-  max-width: 700px;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  max-width: 90%;
+  margin: 2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.loading {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.75rem;
 }
 
 .actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
 }
 
 .title-input {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 0.6rem;
   border: none;
   border-bottom: 2px solid #ccc;
   outline: none;
+  width: 90%;
+  transition: border-color 0.3s;
+}
+
+.title-input:focus {
+  border-color: #42b883;
 }
 
 .content-input {
+  width: 90%;
   min-height: 300px;
+  margin-top: 1rem;
   padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 1px solid #ddd;
   resize: none;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.content-input:focus {
+  border-color: #42b883;
+  box-shadow: 0 0 4px rgba(66, 184, 131, 0.3);
 }
 
 .btn {
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  transition: 0.3s;
 }
+
 .btn.back {
   background: #ccc;
 }
+
 .btn.save {
   background: #42b883;
   color: white;
 }
+
 .btn.delete {
   background: #e74c3c;
   color: white;
 }
+
 .btn:hover {
+  transform: scale(1.05);
   opacity: 0.9;
 }
 </style>
