@@ -1,5 +1,6 @@
 <script setup>
 import { RouterView, RouterLink } from 'vue-router'
+import AppFooter from './components/AppFooter.vue'
 </script>
 
 <template>
@@ -23,14 +24,11 @@ import { RouterView, RouterLink } from 'vue-router'
     </main>
 
     <!-- Footer -->
-    <footer class="app-footer">
-      <p>Hecho por Germán Bermudez — Challenge Vue + Node</p>
-    </footer>
+    <AppFooter />
   </div>
 </template>
 
 <style scoped>
-/* --- Base Layout --- */
 .app-container {
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: #f9fafb;
@@ -40,7 +38,6 @@ import { RouterView, RouterLink } from 'vue-router'
   flex-direction: column;
 }
 
-/* --- Header --- */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -82,21 +79,10 @@ import { RouterView, RouterLink } from 'vue-router'
   border-bottom: 2px solid #42b883;
 }
 
-/* --- Main Content --- */
 .content {
   flex: 1;
   padding: 2rem 1rem;
   max-width: 1100px;
   margin: 0 auto;
-}
-
-/* --- Footer --- */
-.app-footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #777;
-  border-top: 1px solid #eee;
-  background: #fff;
 }
 </style>
