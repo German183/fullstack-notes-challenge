@@ -1,12 +1,28 @@
-const express = require('express')
-const router = express.Router()
-const notesController = require('../controllers/notes.controller')
+// Rutas de la API para manejar notas
+import { Router } from 'express';
+import {
+  getNotes,
+  getNoteById,
+  createNote,
+  updateNote,
+  deleteNote
+} from '../controllers/notes.controller.js';
 
-//defino las rutas y los metodos HTTP para cada una
-router.get('/', notesController.getNotes)
-router.get('/:id', notesController.getNoteById)
-router.post('/', notesController.createNote)
-router.put('/:id', notesController.updateNote)
-router.delete('/:id', notesController.deleteNote)
+const router = Router();
 
-module.exports = router
+// Obtener todas las notas
+router.get('/', getNotes);
+
+// Obtener una nota específica por su ID
+router.get('/:id', getNoteById);
+
+// Crear una nueva nota
+router.post('/', createNote);
+
+// Actualizar una nota existente
+router.put('/:id', updateNote);
+
+// Eliminar una nota
+router.delete('/:id', deleteNote);
+
+export default router;

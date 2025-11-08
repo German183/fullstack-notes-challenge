@@ -1,86 +1,88 @@
-//controlador para las notas
-import fs from 'fs'
-import path from 'path'
+// Controladores de la API de notas
+// Se encargan de manejar la lógica de negocio y leer/escribir los datos del archivo JSON
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const notesFilePath = path.resolve('./src/db/notes.json')
+// Manejo de rutas absolutas (para evitar problemas de importación)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-let notes = []
-try {
-  const raw = fs.readFileSync(notesFilePath, 'utf8')
-  notes = JSON.parse(raw)
-} catch (err) {
-  // si no existe o hay error, iniciar vacío
-  notes = []
-}
+// Ruta al archivo donde se almacenan las notas
+const dataPath = path.join(__dirname, '../db/notes.json');
 
-function saveNotesToFile() {
-  fs.writeFileSync(notesFilePath, JSON.stringify(notes, null, 2), 'utf-8')
-}
+// Leer todas las notas desde el archivo
+export const getNotes = (req, res) => {
+  const data = fs.readFileSync(dataPath, 'utf8');
+  const notes = JSON.parse(data);
+  res.json(notes);
+};
 
-//obtener todas las notas
-const getNotes = (req, res) => {
-  res.json(notes)
-}
+// Obtener una nota por ID
+export const getNoteById = (req, res) => {
+  const data = fs.readFileSync(dataPath, 'utf8');
+  const notes = JSON.parse(data);
+  const note = notes.find(n => n.id === parseInt(req.params.id));
 
-//obtener una nota por id
-const getNoteById = (req, res) => {
-  const id = parseInt(req.params.id)
-  const note = notes.find(n => n.id === id)
-  if (note) {
-    res.json(note)
-  } else {
-    res.status(404).send('Nota no encontrada')
-  }
-}
+  if (!note) return res.status(404).json({ message: 'Nota no encontrada' });
+  res.json(note);
+};
 
-//crear una nueva nota 
-const createNote = (req, res) => {
-  const { title, content } = req.body
+// Crear una nueva nota
+export const createNote = (req, res) => {
+  const { title, content } = req.body;
 
-  if (!title) {
-    return res.status(400).send('Faltan datos obligatorios')
+  if (!title?.trim() || !content?.trim()) {
+    return res.status(400).json({ message: 'Title y content son obligatorios' });
   }
 
-  //el id se obtiene sumando 1 al id de la ultima nota
-    const newId = notes.length ? (notes[notes.length - 1].id + 1) : 1
+  const data = fs.readFileSync(dataPath, 'utf8');
+  const notes = JSON.parse(data);
 
-    const newNote = {
-        id: newId,
-        title,
-        content
-    }
+  const newNote = {
+    id: notes.length ? Math.max(...notes.map(n => n.id)) + 1 : 1,
+    title,
+    content,
+  };
 
-  notes.push(newNote)
-  saveNotesToFile()
-  res.status(201).json(newNote)
-}
+  notes.push(newNote);
+  fs.writeFileSync(dataPath, JSON.stringify(notes, null, 2));
 
-//actualizar una nota existente
-const updateNote = (req, res) => {
-  const id = parseInt(req.params.id)
-  const { title, content } = req.body
-  const note = notes.find(n => n.id === id)
-  if (note) {
-    note.title = title
-    note.content = content
-    saveNotesToFile()
-    res.json(note)
-  } else {
-    res.status(404).send('Nota no encontrada')
+  res.status(201).json({ message: 'Nota creada con éxito', note: newNote });
+};
+
+// Actualizar una nota existente
+export const updateNote = (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+
+  const data = fs.readFileSync(dataPath, 'utf8');
+  const notes = JSON.parse(data);
+  const index = notes.findIndex(n => n.id === parseInt(id));
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'Nota no encontrada' });
   }
-}
 
-//eliminar una nota
-const deleteNote = (req, res) => {
-  const id = parseInt(req.params.id)
-  const noteIndex = notes.findIndex(n => n.id === id)
-  if (noteIndex !== -1) {
-    notes.splice(noteIndex, 1)
-    saveNotesToFile()
-    res.status(204).send()
-  } else {
-    res.status(404).send('Nota no encontrada')
+  notes[index] = { ...notes[index], title, content };
+  fs.writeFileSync(dataPath, JSON.stringify(notes, null, 2));
+
+  res.json({ message: 'Nota actualizada correctamente', note: notes[index] });
+};
+
+// Eliminar una nota
+export const deleteNote = (req, res) => {
+  const { id } = req.params;
+
+  const data = fs.readFileSync(dataPath, 'utf8');
+  let notes = JSON.parse(data);
+
+  const filtered = notes.filter(n => n.id !== parseInt(id));
+
+  if (filtered.length === notes.length) {
+    return res.status(404).json({ message: 'Nota no encontrada' });
   }
-}
 
-export { getNotes, getNoteById, createNote, updateNote, deleteNote }
+  fs.writeFileSync(dataPath, JSON.stringify(filtered, null, 2));
+  res.json({ message: 'Nota eliminada correctamente' });
+};

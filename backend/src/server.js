@@ -1,26 +1,28 @@
-const express = require('express')
-const cors = require('cors')
-const PORT = process.env.PORT || 4000
-
-
-const routes = require('./routes/notes.routes.js')
+// Importa dependencias principales
+import express from 'express'
+import cors from 'cors'
+import notesRoutes from './routes/notes.routes.js'
 
 const app = express()
+const PORT = process.env.PORT || 4000
+
+// Middleware para permitir CORS y parsear JSON
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/notes', routes)
+// Rutas principales de la API
+app.use('/api/notes', notesRoutes)
 
-app.use((req, res) => {
-    res.status(404).json({ mensaje: 'Ruta no encontrada' })
+// Middleware para manejar rutas no encontradas (404)
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Endpoint no encontrado' })
 })
 
+// Middleware general para manejo de errores del servidor
 app.use((err, req, res, next) => {
-    console.error(err.stack)
-    const status = err.status || 500
-    res.status(status).json({ error: err.message || 'Error interno del servidor' })
+  console.error('Error:', err.message)
+  res.status(err.status || 500).json({ message: err.message || 'Error interno del servidor' })
 })
 
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`)
-})
+// Inicia el servidor
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`))
