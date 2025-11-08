@@ -1,39 +1,38 @@
 <script>
 import NoteCard from '../components/NoteCard.vue'
+import NoteModal from '../components/NoteModal.vue'
 
 export default {
   name: 'HomeView',
-  components: { NoteCard },
+  components: { NoteCard, NoteModal },
   data() {
     return {
-      notas: [],
+      notes: [],
+      mostrarModal: false,
     }
   },
   methods: {
-    async obtenerNotas() {
+    async getNotes() {
       const res = await fetch('http://localhost:4000/api/notes')
       const data = await res.json()
-      this.notas = data
+      this.notes = data
     },
-    irADetalle(id) {
+    goToDetail(id) {
       this.$router.push(`/nota/${id}`)
     },
-    async crearNota() {
-      const nueva = {
-        title: 'Nueva Nota',
-        content: ' ',
-      }
+    async createNote(NewNote) {
       const res = await fetch('http://localhost:4000/api/notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nueva),
+        body: JSON.stringify(NewNote),
       })
       const data = await res.json()
-      this.$router.push(`/nota/${data.id}`)
+      this.notes.push(data)
+      this.mostrarModal = false
     },
   },
   mounted() {
-    this.obtenerNotas()
+    this.getNotes()
   },
 }
 </script>
@@ -42,18 +41,24 @@ export default {
   <div class="container">
     <h1>Mis Notas</h1>
 
-    <button @click="crearNota" class="btn">+ Nueva Nota</button>
+    <button @click="mostrarModal = true" class="btn">+ Nueva Nota</button>
 
-    <div v-if="notas.length" class="notas">
+    <div v-if="notes.length" class="notas">
       <NoteCard
-        v-for="nota in notas"
-        :key="nota.id"
-        :nota="nota"
-        @abrir="irADetalle"
+        v-for="note in notes"
+        :key="note.id"
+        :note="note"
+        @abrir="goToDetail"
       />
     </div>
 
     <p v-else>No hay notas todavía.</p>
+
+    <NoteModal
+      v-if="mostrarModal"
+      @save="createNote"
+      @close="mostrarModal = false"
+    />
   </div>
 </template>
 

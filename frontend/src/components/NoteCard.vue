@@ -1,8 +1,8 @@
 <script>
 export default {
-    name: 'NotaCard',
+    name: 'NoteCard',
     props: {
-        nota: {
+        note: {
             type: Object,
             required: true,
         },
@@ -11,9 +11,9 @@ export default {
 </script>
 
 <template>
-  <div class="nota" @click="$emit('abrir', nota.id)">
-    <h2 class="titulo">{{ nota.title }}</h2>
-    <p class="contenido">{{ nota.content.slice(0, 100) }}...</p>
+  <div class="nota" @click="$emit('abrir', note.id)">
+    <h2 class="titulo">{{ note.title }}</h2>
+    <p class="contenido">{{ note.content.slice(0, 100) }}...</p>
   </div>
 </template>
 
