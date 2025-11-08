@@ -37,7 +37,7 @@ const getNoteById = (req, res) => {
 const createNote = (req, res) => {
   const { title, content } = req.body
 
-  if (!title || !content) {
+  if (!title) {
     return res.status(400).send('Faltan datos obligatorios')
   }
 
