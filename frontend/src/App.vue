@@ -18,7 +18,7 @@ import AppFooter from './components/AppFooter.vue'
 
 <style scoped>
 .app-container {
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
   background: #f9fafb;
   color: #333;
   min-height: 100vh;
@@ -31,5 +31,6 @@ import AppFooter from './components/AppFooter.vue'
   padding: 2rem 1rem;
   max-width: 1100px;
   margin: 0 auto;
+  width: 100%;
 }
 </style>
