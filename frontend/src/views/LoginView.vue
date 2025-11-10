@@ -17,7 +17,7 @@ const handleLogin = () => {
 <template>
   <div class="login-container">
     <div class="login-card">
-      <h1>Bienvenido a tus Notas 📝</h1>
+      <h1>Bienvenido a tus Notas</h1>
       <p>Ingresá tu nombre para continuar</p>
 
       <form @submit.prevent="handleLogin">
@@ -35,23 +35,24 @@ const handleLogin = () => {
   </div>
 </template>
 
-
 <style scoped>
+/* Estilos base para móviles (mobile first) */
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   background: #f9fafb;
+  padding: 1rem;
   animation: fadeIn 0.6s ease-in-out;
 }
 
 .login-card {
   background: white;
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 380px;
+  max-width: 320px;
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -61,14 +62,14 @@ const handleLogin = () => {
 }
 
 .login-card h1 {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #1e293b;
   margin-bottom: 0.5rem;
 }
 
 .login-card p {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-bottom: 1.5rem;
 }
 
@@ -116,6 +117,66 @@ form {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Ajustes para tablets (min-width: 640px) */
+@media (min-width: 640px) {
+  .login-container {
+    padding: 2rem;
+  }
+
+  .login-card {
+    padding: 2.5rem 2rem;
+    max-width: 380px;
+  }
+
+  .login-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .login-card p {
+    font-size: 0.95rem;
+  }
+
+  .login-input {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .login-button {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* Ajustes para computadoras (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .login-container {
+    padding: 3rem;
+  }
+
+  .login-card {
+    padding: 3rem 2.5rem;
+    max-width: 420px;
+  }
+
+  .login-card h1 {
+    font-size: 1.8rem;
+  }
+
+  .login-card p {
+    font-size: 1rem;
+  }
+
+  .login-input {
+    padding: 0.9rem 1.3rem;
+    font-size: 1.1rem;
+  }
+
+  .login-button {
+    padding: 0.9rem 1.3rem;
+    font-size: 1.1rem;
   }
 }
 </style>

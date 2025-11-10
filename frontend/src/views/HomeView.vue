@@ -99,6 +99,7 @@ export default {
 </template>
 
 <style scoped>
+/* Estilos base para móviles (mobile first) */
 .home {
   padding: 1.5rem 1rem;
   margin: 0 auto;
@@ -121,7 +122,7 @@ h1 {
   font-weight: 700;
 }
 
-/* Botón base (mobile) */
+
 .btn-add {
   background: #42b883;
   color: white;
@@ -189,7 +190,7 @@ h1 {
   margin-top: 1.5rem;
 }
 
-/* 🔹 Tablet */
+/* Ajustes para tablets (min-width: 640px) */
 @media (min-width: 640px) {
   h1 {
     font-size: 2rem;
@@ -207,7 +208,8 @@ h1 {
   }
 }
 
-/* 🔹 Desktop */
+
+/* Ajustes para computadoras (min-width: 1024px) */
 @media (min-width: 1024px) {
   .home {
     padding: 2rem;

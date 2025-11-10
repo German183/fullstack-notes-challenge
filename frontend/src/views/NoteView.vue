@@ -78,6 +78,7 @@ export default {
 </template>
 
 <style scoped>
+/* Estilos base para móviles (mobile first) */
 .note-view {
   padding: 1.5rem 1rem;
   max-width: 1000px;
@@ -190,7 +191,7 @@ export default {
   resize: vertical;
 }
 
-/* 🔹 Tablet */
+/* Ajustes para tablets (min-width: 640px) */
 @media (min-width: 640px) {
 
   .btn {
@@ -206,7 +207,7 @@ export default {
   }
 }
 
-/* 🔹 Desktop */
+/* Ajustes para computadoras (min-width: 1024px) */
 @media (min-width: 1024px) {
   .note-view {
     padding: 2rem;
