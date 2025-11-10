@@ -150,6 +150,22 @@ Aplicación disponible en:
 
 ---
 
+## 🔐 Autenticación y Autor de Notas
+
+La aplicación ahora incluye un sistema de **inicio de sesión simple** mediante el **almacenamiento local (`localStorage`)**, que permite personalizar la experiencia del usuario.
+
+### 👤 Flujo de autenticación
+
+1. Al iniciar la app, se solicita al usuario ingresar su nombre.  
+2. El nombre se guarda en el `localStorage` y se muestra un saludo personalizado en el encabezado.  
+3. Todas las notas nuevas creadas quedarán asociadas al usuario actual.  
+4. En la vista de detalle de cada nota se muestra el autor con el texto:  
+   > _"✍️ Creado por **NombreUsuario**"_
+
+Este sistema no requiere backend ni manejo de contraseñas, y está pensado para mantener el proyecto **ligero y práctico**, demostrando la integración entre el frontend y la persistencia local.
+
+---
+
 ## 🧑‍💻 Autor
 
 **Germán Bermudez**
