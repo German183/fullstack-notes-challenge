@@ -6,7 +6,7 @@ export default {
 
 <template>
   <footer class="app-footer">
-    <p>Hecho por Germán Bermudez — Challenge Vue + Node</p>
+    <p>Hecho por <strong>Germán Bermudez</strong> — Challenge Vue + Node</p>
   </footer>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   color: #777;
   border-top: 1px solid #eee;
   background: #fff;
-  margin-top: auto; /* empuja el footer al fondo */
+  flex-shrink: 0; /* importante */
+  /* NO usar margin-top: auto aquí */
 }
 </style>
