@@ -24,10 +24,14 @@ Los datos se almacenan de forma local en un archivo JSON, por lo que no requiere
 
 ✅ **CRUD completo** — Crear, leer, actualizar y eliminar notas.  
 🔎 **Búsqueda instantánea** — Filtra en tiempo real por título o contenido.  
+👤 **Inicio de sesión local** — Guarda el nombre del usuario en el navegador.  
+🧾 **Notas con autor** — Cada nota muestra quién la creó.  
 💾 **Persistencia local** — Guarda datos en un archivo JSON sin necesidad de base externa.  
 🎨 **Diseño intuitivo** — Interfaz limpia, responsiva y moderna.  
 ⚡ **Rápido y simple** — Configuración ligera con Node + Vite.
+📱 **Diseño adaptable** (Mobile First) asegura una experiencia óptima en dispositivos móviles, tablets y escritorio.
 
+---
 
 ## 🧱 Estructura del Proyecto
 
@@ -53,7 +57,8 @@ fullstack-notes-challenge/
 │   │   │   └── NoteModal.vue
 │   │   ├── views/                       # Vistas principales
 │   │   │   ├── HomeView.vue
-│   │   │   └── NoteView.vue
+│   │   │   ├── NoteView.vue
+│   │   │   └── LoginView.vue
 │   │   ├── router/
 │   │   │   └── index.js
 │   │   ├── App.vue
