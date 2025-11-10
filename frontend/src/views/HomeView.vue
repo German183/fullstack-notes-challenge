@@ -100,36 +100,38 @@ export default {
 
 <style scoped>
 .home {
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
   max-width: 1000px;
-  margin: 2rem auto;
-  padding: 2rem;
 }
 
+/* Header centrado, botón debajo */
 .header {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #2c3e50;
   font-weight: 700;
 }
 
+/* Botón base (mobile) */
 .btn-add {
   background: #42b883;
   color: white;
   border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .btn-add:hover {
@@ -137,26 +139,7 @@ h1 {
   transform: scale(1.05);
 }
 
-.notas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 1.5rem;
-}
-
-.empty {
-  text-align: center;
-  color: #777;
-  font-size: 1.1rem;
-  margin-top: 2rem;
-}
-
-.loading {
-  text-align: center;
-  color: #888;
-  font-size: 1.1rem;
-}
-
-/* 🔍 Buscador */
+/* Buscador */
 .search-box {
   position: relative;
   display: flex;
@@ -190,4 +173,61 @@ h1 {
   outline: none;
   box-shadow: 0 0 5px rgba(66, 184, 131, 0.3);
 }
+
+/* Grid base: 1 columna en móvil */
+.notas-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+
+/* Estado vacío / cargando */
+.empty, .loading {
+  text-align: center;
+  color: #777;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* 🔹 Tablet */
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .btn-add {
+    font-size: 1.1rem;
+    padding: 1rem 1.8rem;
+    border-radius: 12px;
+  }
+
+  .notas-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+}
+
+/* 🔹 Desktop */
+@media (min-width: 1024px) {
+  .home {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .btn-add {
+    font-size: 1.15rem;
+    padding: 1.1rem 2rem;
+    border-radius: 14px;
+  }
+
+  .notas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.8rem;
+  }
+}
 </style>
+
+

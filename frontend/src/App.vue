@@ -23,7 +23,7 @@ html, body, #app { height: 100%; margin: 0; padding: 0; }
 body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
 .app-container {
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
   background: #f9fafb;
   color: #333;
   display: flex;
