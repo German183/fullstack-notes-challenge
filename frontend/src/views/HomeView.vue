@@ -40,8 +40,8 @@ export default {
     },
     async createNote(newNote) {
       try {
-        await api.post('/', newNote)
         this.mostrarModal = false
+        await api.post('/', newNote)
         await this.getNotes() // refrescamos la lista
         alert('✅ Nota creada correctamente')
       } catch (err) {
