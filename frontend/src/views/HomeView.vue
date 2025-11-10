@@ -1,6 +1,7 @@
 <script>
 import NoteCard from '../components/NoteCard.vue'
 import NoteModal from '../components/NoteModal.vue'
+import api from '../api/api.js'
 
 export default {
   name: 'HomeView',
@@ -25,7 +26,7 @@ export default {
   methods: {
     async getNotes() {
       try {
-        const res = await fetch('http://localhost:4000/api/notes')
+        const res = await api.get('/')
         const data = await res.json()
         this.notes = data
       } catch (err) {
@@ -38,15 +39,12 @@ export default {
       this.$router.push(`/nota/${id}`)
     },
     async createNote(NewNote) {
-      const res = await fetch('http://localhost:4000/api/notes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(NewNote),
-      })
-      if (res.ok) {
-        // Refresca lista desde el servidor
-        await this.getNotes()
+      try {
+        await api.post('/', newNote)
+        await this.getNotes() // refrescamos la lista
         this.mostrarModal = false
+      } catch (err) {
+        console.error('Error al crear nota:', err)
       }
     },
   },

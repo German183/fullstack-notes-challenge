@@ -6,8 +6,13 @@ import notesRoutes from './routes/notes.routes.js'
 const app = express()
 const PORT = process.env.PORT || 4000
 
-// Middleware para permitir CORS y parsear JSON
-app.use(cors())
+// 🟢 CORS activado
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://fullstack-notes-frontend.onrender.com']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}))
+
 app.use(express.json())
 
 // Rutas principales de la API
