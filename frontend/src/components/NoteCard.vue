@@ -37,6 +37,13 @@ export default {
   cursor: pointer;
 }
 
+.card h2,
+.card p {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
