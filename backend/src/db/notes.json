@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "caca",
+    "content": "caca caca caca",
+    "author": "ger"
+  },
+  {
+    "id": 2,
+    "title": "asd",
+    "content": "asd asd asd",
+    "author": "ger"
+  }
+]

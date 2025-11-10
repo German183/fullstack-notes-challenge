@@ -28,9 +28,7 @@ const logout = () => {
 </template>
 
 
-<style
-  scoped>
-
+<style scoped>
   /* Estilos base para móviles (mobile first) */
   .app-header {
     display: flex;
