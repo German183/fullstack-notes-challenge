@@ -13,14 +13,14 @@ const dataPath = path.join(__dirname, '../db/notes.json');
 
 // Leer todas las notas desde el archivo
 export const getNotes = (req, res) => {
-  const data = fs.readFileSync(dataPath, 'utf8');
+  const data = await fs.readFile(dataPath, 'utf8');
   const notes = JSON.parse(data);
   res.json(notes);
 };
 
 // Obtener una nota por ID
 export const getNoteById = (req, res) => {
-  const data = fs.readFileSync(dataPath, 'utf8');
+  const data = await fs.readFile(dataPath, 'utf8');
   const notes = JSON.parse(data);
   const note = notes.find(n => n.id === parseInt(req.params.id));
 
@@ -36,7 +36,7 @@ export const createNote = (req, res) => {
     return res.status(400).json({ message: 'Title y content son obligatorios' });
   }
 
-  const data = fs.readFileSync(dataPath, 'utf8');
+  const data = await fs.readFile(dataPath, 'utf8');
   const notes = JSON.parse(data);
 
   const newNote = {
@@ -47,7 +47,7 @@ export const createNote = (req, res) => {
   };
 
   notes.push(newNote);
-  fs.writeFileSync(dataPath, JSON.stringify(notes, null, 2));
+  await fs.writeFile(dataPath, JSON.stringify(notes, null, 2));
 
   res.status(201).json({ message: 'Nota creada con éxito', note: newNote });
 };
@@ -57,7 +57,7 @@ export const updateNote = (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
-  const data = fs.readFileSync(dataPath, 'utf8');
+  const data = await fs.readFile(dataPath, 'utf8');
   const notes = JSON.parse(data);
   const index = notes.findIndex(n => n.id === parseInt(id));
 
@@ -66,7 +66,7 @@ export const updateNote = (req, res) => {
   }
 
   notes[index] = { ...notes[index], title, content };
-  fs.writeFileSync(dataPath, JSON.stringify(notes, null, 2));
+  await fs.writeFile(dataPath, JSON.stringify(notes, null, 2));
 
   res.json({ message: 'Nota actualizada correctamente', note: notes[index] });
 };
@@ -75,7 +75,7 @@ export const updateNote = (req, res) => {
 export const deleteNote = (req, res) => {
   const { id } = req.params;
 
-  const data = fs.readFileSync(dataPath, 'utf8');
+  const data = await fs.readFile(dataPath, 'utf8');
   let notes = JSON.parse(data);
 
   const filtered = notes.filter(n => n.id !== parseInt(id));
@@ -84,6 +84,6 @@ export const deleteNote = (req, res) => {
     return res.status(404).json({ message: 'Nota no encontrada' });
   }
 
-  fs.writeFileSync(dataPath, JSON.stringify(filtered, null, 2));
+  await fs.writeFile(dataPath, JSON.stringify(filtered, null, 2));
   res.json({ message: 'Nota eliminada correctamente' });
 };

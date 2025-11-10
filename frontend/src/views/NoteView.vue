@@ -1,4 +1,6 @@
 <script>
+import api from '../api/api.js'
+
 export default {
   name: 'NoteView',
   data() {
@@ -10,11 +12,11 @@ export default {
   async mounted() {
     const id = this.$route.params.id
     try {
-      const res = await fetch(`http://localhost:4000/api/notes/${id}`)
-      const data = await res.json()
+      const res = await api.get(`/${id}`)
+      const data = await res.data
       this.note = data
     } catch (err) {
-      console.error('Error fetching note:', err)
+      console.error('Error al obtener nota:', err)
     } finally {
       this.loading = false
     }
@@ -22,25 +24,15 @@ export default {
   methods: {
     async updateNote() {
       const id = this.$route.params.id
-      const res = await fetch(`http://localhost:4000/api/notes/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.note),
-      })
-      if (res.ok) {
-        alert('✅ Nota actualizada correctamente')
-      }
+      const res = await api.put(`/${id}`, this.note)
+      alert('✅ Nota actualizada correctamente')
     },
     async deleteNote() {
       const id = this.$route.params.id
       if (confirm('¿Estás seguro de que quieres eliminar esta nota?')) {
-        const res = await fetch(`http://localhost:4000/api/notes/${id}`, {
-          method: 'DELETE',
-        })
-        if (res.ok) {
-          alert('🗑 Nota eliminada')
-          this.$router.push('/')
-        }
+        const res = await api.delete(`/${id}`)
+        alert('🗑 Nota eliminada')
+        this.$router.push('/')
       }
     },
   },
