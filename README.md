@@ -10,6 +10,16 @@
 
 ---
 
+## 🧠 Descripción General
+
+Este proyecto es una **Single Page Application (SPA)** desarrollada con **Vue 3**, **Vite** y **Vue Router**, que se comunica con una **API RESTful** construida en **Node.js y Express**.
+La aplicación permite gestionar notas con un sistema CRUD completo (crear, leer, actualizar y eliminar) y una función de búsqueda dinámica.
+
+Todo el enrutamiento del frontend se maneja en el lado del cliente, sin recargar la página, garantizando una navegación fluida y una experiencia moderna de usuario.
+Los datos se almacenan de forma local en un archivo JSON, por lo que no requiere base de datos externa.
+
+---
+
 ## 🚀 Características Principales
 
 ✅ **CRUD completo** — Crear, leer, actualizar y eliminar notas.  
