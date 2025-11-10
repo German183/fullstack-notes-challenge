@@ -16,7 +16,7 @@ export default {
       const data = await res.data
       this.note = data
     } catch (err) {
-      console.error('Error al obtener nota:', err)
+      alert('Error al obtener la nota')
     } finally {
       this.loading = false
     }

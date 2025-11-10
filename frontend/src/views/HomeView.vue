@@ -30,7 +30,7 @@ export default {
         const data = await res.data
         this.notes = data
       } catch (err) {
-        console.error('Error al obtener notas:', err)
+        alert('Error al obtener notas')
       } finally {
         this.loading = false
       }
@@ -41,10 +41,11 @@ export default {
     async createNote(newNote) {
       try {
         await api.post('/', newNote)
-        await this.getNotes() // refrescamos la lista
         this.mostrarModal = false
+        await this.getNotes() // refrescamos la lista
+        alert('✅ Nota creada correctamente')
       } catch (err) {
-        console.error('Error al crear nota:', err)
+        alert('Error al crear nota')
       }
     },
   },
