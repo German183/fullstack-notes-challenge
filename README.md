@@ -1,4 +1,4 @@
-# 🌙 Fullstack Notes Challenge
+# Fullstack Notes Challenge
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green)
 ![Vue.js](https://img.shields.io/badge/Vue.js-3-blue)

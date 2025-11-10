@@ -1,25 +1,32 @@
-<script>
-import { RouterLink } from 'vue-router'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-export default {
-  name: 'AppHeader',
-  components: { RouterLink },
+const router = useRouter()
+const userName = ref('')
+
+onMounted(() => {
+  userName.value = localStorage.getItem('userName') || ''
+})
+
+const logout = () => {
+  localStorage.removeItem('userName')
+  router.push('/login')
+  location.reload() // también recargamos para limpiar el header
 }
 </script>
 
 <template>
   <header class="app-header">
-    <div class="logo-section">
-      <h1 class="logo">📝 Mis Notas</h1>
-    </div>
+    <h1 class="logo">📝 Mis Notas</h1>
 
-    <nav class="nav">
-      <RouterLink to="/" class="nav-link" active-class="active-link">
-        Inicio
-      </RouterLink>
-    </nav>
+    <div v-if="userName" class="user-info">
+      <span>Bienvenido, {{ userName }}</span>
+      <button @click="logout">Cerrar sesión</button>
+    </div>
   </header>
 </template>
+
 
 <style scoped>
 .app-header {
@@ -35,31 +42,39 @@ export default {
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #42b883;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #3b82f6;
   margin: 0;
 }
 
-.nav {
+.user-info {
   display: flex;
-  gap: 1.2rem;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  color: #334155;
 }
 
-.nav-link {
-  text-decoration: none;
-  color: #555;
+.user-info span {
   font-weight: 500;
-  transition: color 0.2s, border-bottom 0.2s;
 }
 
-.nav-link:hover {
-  color: #42b883;
+.user-info button {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.25s ease, transform 0.15s ease;
 }
 
-.active-link {
-  color: #42b883;
-  font-weight: 600;
-  border-bottom: 2px solid #42b883;
+.user-info button:hover {
+  background-color: #dc2626;
+  transform: scale(1.03);
 }
 </style>
+
