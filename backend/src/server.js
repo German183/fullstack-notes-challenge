@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 4000
 
 // 🟢 CORS activado
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://fullstack-notes-frontend.onrender.com']
+  origin: ['http://localhost:5173', 'https://fullstack-notes-frontend.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type']
 }))

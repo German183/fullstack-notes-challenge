@@ -27,7 +27,7 @@ export default {
     async getNotes() {
       try {
         const res = await api.get('/')
-        const data = await res.json()
+        const data = await res.data
         this.notes = data
       } catch (err) {
         console.error('Error al obtener notas:', err)
@@ -38,7 +38,7 @@ export default {
     goToDetail(id) {
       this.$router.push(`/nota/${id}`)
     },
-    async createNote(NewNote) {
+    async createNote(newNote) {
       try {
         await api.post('/', newNote)
         await this.getNotes() // refrescamos la lista
