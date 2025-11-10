@@ -19,7 +19,15 @@ export default {
   methods: {
     saveNote() {
       if (!this.note.title.trim() || !this.note.content.trim()) return
-      this.$emit('save', this.note)
+
+      const userName = localStorage.getItem('userName')
+
+      const noteWithAuthor = {
+        ...this.note,
+        author: userName,
+      }
+
+      this.$emit('save', noteWithAuthor)
       this.note = { title: '', content: '' }
     },
   },
@@ -53,7 +61,6 @@ export default {
 </template>
 
 <style scoped>
-/* Fondo del modal */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -68,12 +75,12 @@ export default {
   animation: fadeIn 0.25s ease-in-out;
 }
 
-/* Caja del modal */
 .modal {
   background: white;
   border-radius: 14px;
   padding: 2rem;
-  width: 50%;
+  width: 90%;
+  max-width: 480px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   animation: scaleIn 0.25s ease;
   display: flex;
@@ -88,13 +95,12 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-/* Inputs */
 input,
 textarea {
-  width: 90%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s;
 }
@@ -118,7 +124,6 @@ form {
   gap: 1rem;
 }
 
-/* Botones */
 .buttons {
   display: flex;
   justify-content: flex-end;
@@ -153,7 +158,6 @@ form {
   background: #cacaca;
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }

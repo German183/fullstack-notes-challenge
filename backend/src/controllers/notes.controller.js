@@ -30,7 +30,7 @@ export const getNoteById = (req, res) => {
 
 // Crear una nueva nota
 export const createNote = (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, author } = req.body;
 
   if (!title?.trim() || !content?.trim()) {
     return res.status(400).json({ message: 'Title y content son obligatorios' });
@@ -43,6 +43,7 @@ export const createNote = (req, res) => {
     id: notes.length ? Math.max(...notes.map(n => n.id)) + 1 : 1,
     title,
     content,
+    author,
   };
 
   notes.push(newNote);

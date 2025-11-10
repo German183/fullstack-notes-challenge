@@ -3,7 +3,7 @@ export default {
   name: 'NoteView',
   data() {
     return {
-      note: { title: '', content: '' },
+      note: { title: '', content: '', author: '' },
       loading: true,
     }
   },
@@ -51,7 +51,7 @@ export default {
   <div class="note-view">
     <div v-if="loading" class="loading">Cargando nota...</div>
 
-    <div v-else class="inputs">
+    <div v-else>
       <div class="header">
         <button class="btn back" @click="$router.push('/')">← Volver</button>
         <div class="actions">
@@ -71,16 +71,23 @@ export default {
         placeholder="Escribí tu contenido..."
         class="content-input"
       ></textarea>
+
+      <p v-if="note.author" class="note-author">✍️ Creado por <strong>{{ note.author }}</strong></p>
     </div>
   </div>
 </template>
 
 <style scoped>
+* {
+  box-sizing: border-box;
+}
+
 .note-view {
-  max-width: 90%;
-  margin: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   background: #ffffff;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
@@ -105,13 +112,6 @@ export default {
   gap: 0.75rem;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-}
-
 .title-input {
   font-size: 1.6rem;
   font-weight: 600;
@@ -119,8 +119,10 @@ export default {
   border: none;
   border-bottom: 2px solid #ccc;
   outline: none;
-  width: 90%;
-  transition: border-color 0.3s;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  background: transparent;
 }
 
 .title-input:focus {
@@ -128,7 +130,7 @@ export default {
 }
 
 .content-input {
-  width: 90%;
+  width: 100%;
   min-height: 300px;
   margin-top: 1rem;
   padding: 1rem;
@@ -137,12 +139,21 @@ export default {
   resize: none;
   outline: none;
   line-height: 1.6;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  background: transparent;
 }
 
 .content-input:focus {
   border-color: #42b883;
   box-shadow: 0 0 4px rgba(66, 184, 131, 0.3);
+}
+
+.note-author {
+  text-align: right;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  font-style: italic;
 }
 
 .btn {
