@@ -59,7 +59,7 @@ export default {
           <button class="btn save" @click="updateNote">💾 Guardar</button>
         </div>
       </div>
-
+      
       <input
         v-model="note.title"
         placeholder="Título de la nota"
@@ -78,16 +78,15 @@ export default {
 </template>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
-
 .note-view {
-  width: 100%;
-  max-width: 1200px;
+  padding: 1.5rem 1rem;
+  max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
   background: #ffffff;
-  padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
@@ -102,50 +101,9 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
   gap: 0.75rem;
-}
-
-.actions {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.title-input {
-  font-size: 1.6rem;
-  font-weight: 600;
-  padding: 0.6rem;
-  border: none;
-  border-bottom: 2px solid #ccc;
-  outline: none;
-  width: 100%;
-  margin: 0;
-  box-sizing: border-box;
-  background: transparent;
-}
-
-.title-input:focus {
-  border-color: #42b883;
-}
-
-.content-input {
-  width: 100%;
-  min-height: 300px;
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  resize: none;
-  outline: none;
-  line-height: 1.6;
-  box-sizing: border-box;
-  background: transparent;
-}
-
-.content-input:focus {
-  border-color: #42b883;
-  box-shadow: 0 0 4px rgba(66, 184, 131, 0.3);
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .note-author {
@@ -156,31 +114,112 @@ export default {
   font-style: italic;
 }
 
+/* Botones principales */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
 .btn {
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  border-radius: 10px;
+  padding: 0.8rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 0.95rem;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  color: #fff;
 }
 
 .btn.back {
-  background: #ccc;
+  background: #7f8c8d;
 }
 
 .btn.save {
   background: #42b883;
-  color: white;
 }
+
 
 .btn.delete {
   background: #e74c3c;
-  color: white;
 }
 
 .btn:hover {
-  transform: scale(1.05);
   opacity: 0.9;
+  transform: scale(1.05);
+}
+
+
+.title-input{
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.6rem;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  width: 100%;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.content-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.3s;
+  background: #fff;
+}
+
+.title-input:focus,
+.content-input:focus {
+  border-color: #42b883;
+  outline: none;
+  box-shadow: 0 0 4px rgba(66, 184, 131, 0.3);
+}
+
+.content-input {
+  min-height: 200px;
+  resize: vertical;
+}
+
+/* 🔹 Tablet */
+@media (min-width: 640px) {
+
+  .btn {
+    font-size: 1.1rem;
+    padding: 1rem 1.7rem;
+    border-radius: 12px;
+  }
+
+  .title-input,
+  .content-input {
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* 🔹 Desktop */
+@media (min-width: 1024px) {
+  .note-view {
+    padding: 2rem;
+  }
+
+  .btn {
+    font-size: 1.15rem;
+    padding: 1.1rem 2rem;
+  }
+
+  .textarea-content {
+    min-height: 250px;
+  }
 }
 </style>
+
