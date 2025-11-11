@@ -8,8 +8,8 @@ const router = useRouter()
 const handleLogin = () => {
   if (userName.value.trim()) {
     localStorage.setItem('userName', userName.value.trim())
-    router.push('/')
     location.reload() // fuerza que se recargue el header
+    router.push('/')
   }
 }
 </script>

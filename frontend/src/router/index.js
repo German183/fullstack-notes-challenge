@@ -21,7 +21,6 @@ const router = createRouter({
       name: 'login',
       component: LoginView
     },
-    // Redirección para rutas no existentes
     {
       path: '/:pathMatch(.*)*',
       redirect: '/',
