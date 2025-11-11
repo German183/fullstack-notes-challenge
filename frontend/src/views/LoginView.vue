@@ -8,9 +8,11 @@ const router = useRouter()
 const handleLogin = () => {
   if (userName.value.trim()) {
     localStorage.setItem('userName', userName.value.trim())
+    window.dispatchEvent(new Event('user-updated'))
     router.push('/')
   }
 }
+
 </script>
 
 <template>

@@ -3,7 +3,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const userName = ref('')
+const userName = ref(localStorage.getItem('userName') || '')
+
+// 🔄 Escuchamos evento personalizado para actualizar el usuario
+window.addEventListener('user-updated', () => {
+  userName.value = localStorage.getItem('userName') || ''
+})
 
 onMounted(() => {
   userName.value = localStorage.getItem('userName') || ''
@@ -11,10 +16,13 @@ onMounted(() => {
 
 const logout = () => {
   localStorage.removeItem('userName')
+  userName.value = ''
   router.push('/login')
-  location.reload() // también recargamos para limpiar el header
+  // 🔔 Disparamos evento para notificar a toda la app
+  window.dispatchEvent(new Event('user-updated'))
 }
 </script>
+
 
 <template>
   <header class="app-header">
@@ -27,9 +35,7 @@ const logout = () => {
   </header>
 </template>
 
-
 <style scoped>
-  /* Estilos base para móviles (mobile first) */
   .app-header {
     display: flex;
     justify-content: space-between;
@@ -78,42 +84,34 @@ const logout = () => {
     transform: scale(1.03);
   }
 
-  /* Ajustes para tablets (min-width: 768px) */
   @media (min-width: 768px) {
     .app-header {
       padding: 1rem 1.5rem;
     }
-
     .logo {
       font-size: 1.4rem;
     }
-
     .user-info {
       gap: 1rem;
       font-size: 1rem;
     }
-
     .user-info button {
       padding: 0.5rem 0.9rem;
       font-size: 0.9rem;
     }
   }
 
-  /* Ajustes para computadoras (min-width: 1024px) */
   @media (min-width: 1024px) {
     .app-header {
       padding: 1rem 2rem;
     }
-
     .logo {
       font-size: 1.5rem;
     }
-
     .user-info {
       gap: 1.25rem;
       font-size: 1.05rem;
     }
-
     .user-info button {
       padding: 0.6rem 1rem;
       font-size: 0.95rem;
