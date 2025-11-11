@@ -20,6 +20,18 @@ Los datos se almacenan de forma local en un archivo JSON, por lo que no requiere
 
 ---
 
+## 🌍 Demo Online
+
+🚀 **Aplicación en producción:**  
+🔗 [Frontend (Vue 3)](https://fullstack-notes-frontend.onrender.com)
+
+🛠️ **API REST (Backend - Node/Express):**  
+🔗 [Backend (API)](https://fullstack-notes-backend.onrender.com/api/notes)
+
+> Si el backend tarda unos segundos en responder, es normal — los servicios gratuitos de Render entran en modo "sleep" cuando no se usan por un tiempo.
+
+---
+
 ## 🚀 Características Principales
 
 ✅ **CRUD completo** — Crear, leer, actualizar y eliminar notas.  
